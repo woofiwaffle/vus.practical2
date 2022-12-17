@@ -1,8 +1,32 @@
 #include <iostream>
 #include <chrono>
 #include <ctime>
+
 using namespace std;
 using namespace chrono;
+
+int sab, bd, cut, cnt;
+void Shell(int array[], int n) {                //сортировка Шелла
+    cut = n;
+    cut = cut / 2;
+    while (cut > 0) {
+        for (int i = 0; i < n - cut; i++) {
+            sab = i;
+            while (sab >= 0 && array[sab] > array[sab + cut]) {
+                cnt = array[sab];
+                array[sab] = array[sab + cut];
+                array[sab + cut] = cnt;
+                sab--;
+            }
+        }
+        cut = cut / 2;
+    }
+
+    for(int i = 0; i < n; i++) {
+        cout << array[i] << " ";
+    }
+}
+
 int main() {
     setlocale(LC_ALL, "en");
 
@@ -266,7 +290,16 @@ int main() {
     cout << "\nTime: " << result.count() << " ns\n";     // exchange rate
 
     cout << "\n" << "\n";
-
+    
+    cout << "array size(Shell sort):  ";
+    cin >> bd;
+    int *array = new int[bd];              
+    for (int i = 0; i < bd; i++) {
+        cout << i + 1 << " element: ";
+        cin >> array[i];
+    }
+    cout << "array: " << "\n";
+    Shell(array, bd);
 
     return 0;
 }
